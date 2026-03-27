@@ -1,9 +1,198 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azib & Iesya</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: #0d0d0d;
+    color: #f5e6c8;
+    overflow-x: hidden;
+}
+
+/* OPENING SCREEN */
+#opening {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#opening h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.open-btn {
+    padding: 12px 25px;
+    border: none;
+    background: gold;
+    color: black;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* MAIN CONTENT */
+.content {
+    display: none;
+    text-align: center;
+}
+
+/* HERO */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeIn 2s ease;
+}
+
+h1 {
+    font-size: 48px;
+    letter-spacing: 3px;
+}
+
+.date {
+    opacity: 0.8;
+}
+
+/* SECTION */
+.section {
+    padding: 80px 20px;
+    animation: fadeUp 1.5s ease;
+}
+
+/* COUNTDOWN */
+.countdown {
+    font-size: 28px;
+    margin-top: 20px;
+}
+
+/* BUTTON */
+.btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: gold;
+    color: black;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* MUSIC BUTTON */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: gold;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeUp {
+    from {opacity: 0; transform: translateY(40px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+</style>
 </head>
-<body style="background:black; color:white; text-align:center; margin-top:100px;">
-    <h1>IT WORKS 🔥</h1>
+
+<body>
+
+<!-- OPENING -->
+<div id="opening">
+    <h1>You're Invited</h1>
+    <button class="open-btn" onclick="openInvite()">Open Invitation</button>
+</div>
+
+<!-- MAIN -->
+<div class="content" id="main">
+
+    <div class="hero">
+        <h1>Azib & Iesya</h1>
+        <div class="date">04 April 2026</div>
+    </div>
+
+    <div class="section">
+        <h2>Counting Down</h2>
+        <div class="countdown" id="timer"></div>
+    </div>
+
+    <div class="section">
+        <h2>Wedding Details</h2>
+        <p>🕚 11:00 AM</p>
+        <p>📍 Dewan Seri Impian</p>
+
+        <a href="https://maps.google.com" target="_blank">
+            <button class="btn">View Location</button>
+        </a>
+    </div>
+
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<script>
+// OPEN INVITE
+function openInvite() {
+    document.getElementById("opening").style.display = "none";
+    document.getElementById("main").style.display = "block";
+
+    document.getElementById("music").play();
+}
+
+// COUNTDOWN
+var countDownDate = new Date("Apr 4, 2026 11:00:00").getTime();
+
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+
+    var d = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var s = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("timer").innerHTML =
+    d + "d " + h + "h " + m + "m " + s + "s";
+
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("timer").innerHTML = "It's Wedding Time!";
+    }
+}, 1000);
+
+// MUSIC TOGGLE
+function toggleMusic() {
+    var music = document.getElementById("music");
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+</script>
+
 </body>
 </html>
